@@ -11,6 +11,6 @@
 - Aerohive AP
   - Mdel: AP245X
   - Version; 10.0r8a build-242466
-- How to use.
-  1. Settings -> Template -> Import
-  1. Add template to monitor host.
+## How to use.
+1. Settings -> Template -> Import
+1. Add template to monitor host.
