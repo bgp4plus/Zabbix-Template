@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-03-06T12:14:29Z</date>
+    <groups>
+        <group>
+            <name>Templates/Network devices</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>UNIVERGE IX</template>
+            <name>UNIVERGE IX</name>
+            <templates>
+                <template>
+                    <name>Template Module EtherLike-MIB SNMP</name>
+                </template>
+                <template>
+                    <name>Template Module Generic SNMP</name>
+                </template>
+                <template>
+                    <name>Template Module Interfaces SNMP</name>
+                </template>
+            </templates>
+            <groups>
+                <group>
+                    <name>Templates/Network devices</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Fan</name>
+                </application>
+                <application>
+                    <name>Hardware</name>
+                </application>
+                <application>
+                    <name>IPv4 UFS Cache</name>
+                </application>
+                <application>
+                    <name>IPv6 UFS Cache</name>
+                </application>
+                <application>
+                    <name>NAPT</name>
+                </application>
+                <application>
+                    <name>Power</name>
+                </application>
+                <application>
+                    <name>System</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Temperature</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.119.2.3.84.2.1.1.0</snmp_oid>
+                    <key>pico.Celsius</key>
+                    <delay>3m</delay>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <units>°C</units>
+                    <applications>
+                        <application>
+                            <name>Hardware</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(5)}&gt;{$HIGH_TEMP_WARN}</expression>
+                            <name>{HOST.NAME} is High Temperature over {$HIGH_TEMP_WARN}℃.</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Total Heap Memory Size</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.119.2.3.84.2.6.1.0</snmp_oid>
+                    <key>pico.Heap.Size</key>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <units>byte</units>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Memory Utilization</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.119.2.3.84.2.6.2.0</snmp_oid>
+                    <key>pico.Heap.Util</key>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(0)}&gt;=80</expression>
+                            <name>High Memory utilization (over {$MEM_WARN}% for 1m)</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>IPv4 UFS Cache Creates</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.119.2.3.84.12.2.3.0</snmp_oid>
+                    <key>pico.IPv4UFSCache.Creates</key>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <applications>
+                        <application>
+                            <name>IPv4 UFS Cache</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>IPv4 UFS Cache Entries</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.119.2.3.84.12.2.1.0</snmp_oid>
+                    <key>pico.IPv4UFSCache.Entries</key>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <applications>
+                        <application>
+                            <name>IPv4 UFS Cache</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>IPv4 UFS Cache Overflows</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.119.2.3.84.12.2.4.0</snmp_oid>
+                    <key>pico.IPv4UFSCache.Overflows</key>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <applications>
+                        <application>
+                            <name>IPv4 UFS Cache</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}&gt;0</expression>
+                            <name>IPv4 UFS Cache Overflows</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>IPv4 UFS Cache Peaks</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.119.2.3.84.12.2.2.0</snmp_oid>
+                    <key>pico.IPv4UFSCache.Peaks</key>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <applications>
+                        <application>
+                            <name>IPv4 UFS Cache</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>IPv6 UFS Cache Creates</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.119.2.3.84.13.2.3.0</snmp_oid>
+                    <key>pico.IPv6UFSCache.Creates</key>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <applications>
+                        <application>
+                            <name>IPv6 UFS Cache</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>IPv6 UFS Cache Entries</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.119.2.3.84.13.2.1.0</snmp_oid>
+                    <key>pico.IPv6UFSCache.Entries</key>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <applications>
+                        <application>
+                            <name>IPv6 UFS Cache</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>IPv6 UFS Cache Overflows</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.119.2.3.84.13.2.4.0</snmp_oid>
+                    <key>pico.IPv6UFSCache.Overflows</key>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <applications>
+                        <application>
+                            <name>IPv6 UFS Cache</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}&gt;0</expression>
+                            <name>IPv6 UFS Cache Overflows</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>IPv6 UFS Cache Peaks</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.119.2.3.84.13.2.2.0</snmp_oid>
+                    <key>pico.IPv6UFSCache.Peaks</key>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <applications>
+                        <application>
+                            <name>IPv6 UFS Cache</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>CPU Utilization for 1min</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.119.2.3.84.2.5.3.0</snmp_oid>
+                    <key>pico.SchedRtUtl.1Min</key>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(0)}&gt;{$CPU_WARN}</expression>
+                            <name>High CPU utilization (over {$CPU_WARN}% for 1m)</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Voltage</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>.1.3.6.1.4.1.119.2.3.84.2.2.0</snmp_oid>
+                    <key>pico.Voltage</key>
+                    <delay>5m</delay>
+                    <history>2w</history>
+                    <trends>0</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>V</units>
+                    <applications>
+                        <application>
+                            <name>Hardware</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.001</params>
+                        </step>
+                    </preprocessing>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>NAPT Cache</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#IFNAME},.1.3.6.1.2.1.2.2.1.2]</snmp_oid>
+                    <key>naptCache.[{#IFNAME}]</key>
+                    <status>DISABLED</status>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>NAPT Cache Creates - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.119.2.3.84.15.1.1.1.4.{#SNMPINDEX}</snmp_oid>
+                            <key>naptCache.creates.[{#IFNAME}]</key>
+                            <applications>
+                                <application>
+                                    <name>NAPT</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>NAPT Cache Entries - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.119.2.3.84.15.1.1.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>naptCache.entries.[{#IFNAME}]</key>
+                            <applications>
+                                <application>
+                                    <name>NAPT</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>NAPT Cache Overflows - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.119.2.3.84.15.1.1.1.5.{#SNMPINDEX}</snmp_oid>
+                            <key>naptCache.overflows.[{#IFNAME}]</key>
+                            <applications>
+                                <application>
+                                    <name>NAPT</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>NAPT Cache Peak - {#IFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.119.2.3.84.15.1.1.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>naptCache.peak.[{#IFNAME}]</key>
+                            <applications>
+                                <application>
+                                    <name>NAPT</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Fan</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#FANINDEX},.1.3.6.1.4.1.119.2.3.84.2.3.1.1]</snmp_oid>
+                    <key>pico.fan.[{#FANINDEX}]</key>
+                    <delay>5m</delay>
+                    <lifetime>1w</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Fan #{#FANINDEX} rpm</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.119.2.3.84.2.3.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>pico.fan.rpm.[{#FANINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>1w</history>
+                            <trends>0</trends>
+                            <units>rpm</units>
+                            <applications>
+                                <application>
+                                    <name>Fan</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Fan #{#FANINDEX} Status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.119.2.3.84.2.3.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>pico.fan.status.[{#FANINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>1w</history>
+                            <trends>0</trends>
+                            <applications>
+                                <application>
+                                    <name>Fan</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>NEC Fan Status</name>
+                            </valuemap>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}=2</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>{last()}=1</recovery_expression>
+                                    <name>Fan #{#FANINDEX} is failure</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>PowerSupply</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#PSINDEX},.1.3.6.1.4.1.119.2.3.84.2.4.1.1]</snmp_oid>
+                    <key>pico.powersupply.[{#PSINDEX}]</key>
+                    <delay>5m</delay>
+                    <lifetime>1w</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Power Supply Status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.119.2.3.84.2.4.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>powersupply.status.[{#PSINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>1w</history>
+                            <trends>0</trends>
+                            <applications>
+                                <application>
+                                    <name>Power</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>NEC Power Supply Status</name>
+                            </valuemap>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}=2</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>{last()}=1</recovery_expression>
+                                    <name>Power Supply Module#{#PSINDEX} failure</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Power Supply Type</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.119.2.3.84.2.4.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>powersupply.type.[{#PSINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>1w</history>
+                            <trends>0</trends>
+                            <applications>
+                                <application>
+                                    <name>Power</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>NEC Power Supply Type</name>
+                            </valuemap>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$CPU_WARN}</macro>
+                    <value>80</value>
+                </macro>
+                <macro>
+                    <macro>{$HIGH_TEMP_WARN}</macro>
+                    <value>55</value>
+                </macro>
+                <macro>
+                    <macro>{$MEM_WARN}</macro>
+                    <value>80</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+    <value_maps>
+        <value_map>
+            <name>NEC Fan Status</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>normal</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>failure</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>NEC Power Supply Status</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>not installed</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>normal</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>failure</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>NEC Power Supply Type</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>not installed</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>AC</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>PoE</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
