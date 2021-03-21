@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2020-09-12T10:48:01Z</date>
+    <date>2021-03-21T01:08:20Z</date>
     <groups>
         <group>
             <name>Templates/Network devices</name>
@@ -13,10 +13,13 @@
             <name>Aerohive AP</name>
             <templates>
                 <template>
+                    <name>Template Module EtherLike-MIB SNMPv2</name>
+                </template>
+                <template>
                     <name>Template Module Generic SNMPv2</name>
                 </template>
                 <template>
-                    <name>Template Module Interfaces SNMPv2</name>
+                    <name>Template Module Interfaces SNMP</name>
                 </template>
             </templates>
             <groups>
@@ -44,6 +47,9 @@
                     <name>Mem</name>
                 </application>
                 <application>
+                    <name>Radio</name>
+                </application>
+                <application>
                     <name>System</name>
                 </application>
             </applications>
@@ -55,7 +61,7 @@
                     <key>ah.ClientCount</key>
                     <applications>
                         <application>
-                            <name>Client</name>
+                            <name>System</name>
                         </application>
                     </applications>
                 </item>
@@ -67,7 +73,7 @@
                     <units>%</units>
                     <applications>
                         <application>
-                            <name>Cpu</name>
+                            <name>System</name>
                         </application>
                     </applications>
                     <triggers>
@@ -75,12 +81,7 @@
                             <expression>{avg(#3)}&gt;={$CPU_WARN}</expression>
                             <name>{HOST.NAME} is High CPU utilization over  {$CPU_WARN}% for 1.5m avg.</name>
                             <priority>WARNING</priority>
-                            <tags>
-                                <tag>
-                                    <tag>{$CPU_WARN}</tag>
-                                    <value>85</value>
-                                </tag>
-                            </tags>
+                            <description>{TRIGGER.URL}</description>
                         </trigger>
                     </triggers>
                 </item>
@@ -94,9 +95,15 @@
                     <value_type>CHAR</value_type>
                     <applications>
                         <application>
-                            <name>Device</name>
+                            <name>System</name>
                         </application>
                     </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
                 </item>
                 <item>
                     <name>EnvirmentTemp</name>
@@ -106,20 +113,16 @@
                     <units>℃</units>
                     <applications>
                         <application>
-                            <name>Envir</name>
+                            <name>System</name>
                         </application>
                     </applications>
                     <triggers>
                         <trigger>
                             <expression>{last()}&gt;={$TEMP_WARN}</expression>
                             <name>{HOST.NAME} is High Temperature over {$TEMP_WARN}℃.</name>
+                            <url>{TRIGGER.URL}</url>
                             <priority>WARNING</priority>
-                            <tags>
-                                <tag>
-                                    <tag>{$TEMP_WARN}</tag>
-                                    <value>60</value>
-                                </tag>
-                            </tags>
+                            <description>{TRIGGER.URL}</description>
                         </trigger>
                     </triggers>
                 </item>
@@ -129,11 +132,19 @@
                     <snmp_oid>.1.3.6.1.4.1.26928.1.2.8.0</snmp_oid>
                     <key>ah.HwVersion</key>
                     <delay>3h</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
                     <applications>
                         <application>
-                            <name>Hw</name>
+                            <name>System</name>
                         </application>
                     </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
                 </item>
                 <item>
                     <name>MemUtilization</name>
@@ -143,7 +154,7 @@
                     <units>%</units>
                     <applications>
                         <application>
-                            <name>Mem</name>
+                            <name>System</name>
                         </application>
                     </applications>
                 </item>
@@ -160,6 +171,12 @@
                             <name>System</name>
                         </application>
                     </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
                 </item>
                 <item>
                     <name>Name</name>
@@ -174,6 +191,12 @@
                             <name>System</name>
                         </application>
                     </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
                 </item>
                 <item>
                     <name>Serial</name>
@@ -181,11 +204,19 @@
                     <snmp_oid>.1.3.6.1.4.1.26928.1.2.5.0</snmp_oid>
                     <key>ah.System.Serial</key>
                     <delay>3h</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
                     <applications>
                         <application>
                             <name>System</name>
                         </application>
                     </applications>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <params>1h</params>
+                        </step>
+                    </preprocessing>
                 </item>
                 <item>
                     <name>UpTime</name>
@@ -193,15 +224,78 @@
                     <snmp_oid>.1.3.6.1.4.1.26928.1.2.7.0</snmp_oid>
                     <key>ah.UpTime</key>
                     <delay>30s</delay>
-                    <units>uptime</units>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>System</name>
+                        </application>
+                    </applications>
                 </item>
             </items>
-            <tags>
-                <tag>
-                    <tag>make</tag>
-                    <value>takezaki</value>
-                </tag>
-            </tags>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Radio</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#AHIFNAME},.1.3.6.1.4.1.26928.1.1.1.2.1.1.1.1]</snmp_oid>
+                    <key>ah.Radio.discovery</key>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#AHIFNAME}</macro>
+                                <value>wifi.</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Radio Channel - {#AHIFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.26928.1.1.1.2.1.5.1.1.{#SNMPINDEX}</snmp_oid>
+                            <key>ah.Radio.Channel.[{#AHIFNAME}]</key>
+                            <units>ch</units>
+                            <applications>
+                                <application>
+                                    <name>Radio</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{delta(600)}&gt;0</expression>
+                                    <name>Changed channel of {#AHIFNAME} from {{HOST.HOST}:{ITEM.KEY}.last(2)} to {ITEM.VALUE}</name>
+                                    <priority>INFO</priority>
+                                    <description>Changed wireless interface channel.&#13;
+{TRIGGER.URL}</description>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Radio TxPower - {#AHIFNAME}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.4.1.26928.1.1.1.2.1.5.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>ah.Radio.TxPower.[{#AHIFNAME}]</key>
+                            <units>dBm</units>
+                            <applications>
+                                <application>
+                                    <name>Radio</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$CPU_WARN}</macro>
+                    <value>85</value>
+                </macro>
+                <macro>
+                    <macro>{$TEMP_WARN}</macro>
+                    <value>60</value>
+                </macro>
+            </macros>
         </template>
     </templates>
 </zabbix_export>
